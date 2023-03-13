@@ -10,6 +10,7 @@
 
 <body>
     <script src="index.bundle.js" defer></script>
+    <script src="projects.bundle.js" defer></script>
     <header>
         <div class="header-title">To Do List</div>
 
@@ -20,18 +21,38 @@
     </header>
     <div class="main">
         <div class="sidebar">
-            <div class="inbox menu-button selected">
-                <img src="./img/inbox.png" alt="inbox" width="25px"> Inbox
+            <div class="sidebar-grid">
+                <div class="inbox menu-button selected">
+                    <img src="./img/inbox.png" alt="inbox" width="25px"> Inbox
+                </div>
+                <div class="today menu-button">
+                    <img src="./img/today.png" alt="today" width="25px"> Today
+                </div>
+                <div class="week menu-button">
+                    <img src="./img/four-sqares.png" alt="this week" width="25px">This Week
+                </div>
+                <div class="completed menu-button">
+                    <img src="./img/check.png" alt="today" width="25px">Completed
+                </div>
             </div>
-            <div class="today menu-button">
-               <img src="./img/today.png" alt="today" width="25px"> Today</div>
-            <div class="week menu-button">
-                <img src="./img/four-sqares.png" alt="this week" width="25px">This Week</div>
-            <div class="completed menu-button">
-                <img src="./img/check.png" alt="today" width="25px">Completed</div>
+
             <div class="projects">
-                <div class="projects-title">Projects</div>
+                <div class="project-title">Projects</div>
+                <div class="new-project" data-project="1">
+                    <div class="new-project-title">Project 1</div>
+                    <div class="new-project-delete">&nbspX</div>
+                </div>
                 <div class="add-project">+ Add project</div>
+                <!-- <div class="create-new-project">
+                    <form action="#">
+                        <input type="text" placeholder="Project Name">
+                        <div class="new-project-buttons">
+                            <input type="button" value="Add project" class="new-project-buttons-add-project">
+                            <input type="button" value="Cancel" class="new-project-buttons-cancel">
+                        </div> -->
+
+                    </form>
+                </div>
             </div>
         </div>
         <div class="content"></div>

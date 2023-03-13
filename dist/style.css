@@ -66,21 +66,31 @@ footer {
 }
 
 .sidebar {
+
     font-size: 18px;
     padding-top: 30px;
     padding-left: 20px;
     padding-right: 25px;
     background-color: var(--font-color2);
     width: 200px;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+
+}
+
+.sidebar-grid {
     display: grid;
-    grid-template-rows: 25px 25px 25px 25px 100px;
+    grid-template-rows: 25px 25px 25px 25px;
     gap: 5px;
     justify-items: start;
     align-items: center;
 }
 
 .menu-button {
-    cursor: pointer;
+
     padding: 3px;
     width: 100%;
     border-radius: 8px;
@@ -89,12 +99,15 @@ footer {
     gap: 7px;
 }
 
-.menu-button.selected, .add-project.selected {
+.menu-button.selected,
+.add-project.selected {
     background-color: var(--white-color);
 }
 
-.menu-button:hover , .add-project:hover{
-   
+.menu-button:hover,
+.add-project:hover,
+.new-project:hover {
+    cursor: pointer;
     background-color: var(--white-color);
 }
 
@@ -102,17 +115,79 @@ footer {
     flex: 1;
 }
 
-.projects{
+.projects {
+    margin-top: 50px;
     align-self: flex-end;
     width: 100%;
-   
+
 
 }
 
-.add-project{
-    cursor: pointer;
+.project-title {
+    font-size: 22px;
+}
+
+.add-project {
+
     border-radius: 8px;
     width: 100%;
-   padding: 3px;
+    padding: 7px;
     margin-top: 10px;
 }
+
+.new-project {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 7px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.new-project-delete {
+    width: 20px;
+    height: 20px;
+
+}
+
+.create-new-project input[type='text'] {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--main-color);
+    padding: 2px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.new-project-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.create-new-project input[type='button'] {
+    width: 97px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+}
+
+.new-project-buttons-add-project{
+    background-color: var(--main-color);
+    font-weight: bold;
+    color: var(--font-color);
+}
+.new-project-buttons-cancel{
+    color: var(--main-color);
+    font-weight: bold;
+    background-color: var(--white-color);
+}
+
+.new-project-buttons-cancel:hover{
+    background-color: #e7e7e7;
+}
+.new-project-buttons-add-project:hover{
+    background-color:#3c3a41;
+}
+

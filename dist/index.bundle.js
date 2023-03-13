@@ -1,0 +1,1 @@
+(()=>{const e=document.querySelector(".new-project");console.log(e),e.addEventListener("click",(function(e){e.srcElement.classList.contains("new-project-delete")&&console.log("delete this project")}))})();
