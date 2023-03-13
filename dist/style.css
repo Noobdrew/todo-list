@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@500&display=swap');
+
+:root {
+
+    font-family: 'Golos Text', Helvetica, Arial, sans-serif;
+    --white-color: #ffff;
+    --main-color: #201F25;
+    --font-color: #E3E8E9;
+    --font-color2: #f0f0f0;
+    --acsent-color: #2D7DD2;
+    --acsent-color2: #F7E733;
+    --acsent-color3: #F45D01;
+}
+
+body {
+    margin: 0;
+}
+
+/* * {
+    outline: 1px solid red;
+} */
+
+header {
+    height: 6vh;
+    color: var(--font-color);
+    padding: 1vh;
+    font-size: 3vh;
+    font-weight: bolder;
+    background-color: var(--main-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-user {
+    font-size: 2vh;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+
+a:link {
+    text-decoration: none;
+    color: var(--acsent-color);
+}
+
+a:visited {
+    color: var(--acsent-color3);
+    text-decoration: none;
+}
+
+footer {
+    height: 4vh;
+    font-size: 1.7vh;
+    background-color: var(--main-color);
+    color: var(--font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    height: 88vh;
+    display: flex;
+}
+
+.sidebar {
+    font-size: 18px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 25px;
+    background-color: var(--font-color2);
+    width: 200px;
+    display: grid;
+    grid-template-rows: 25px 25px 25px 25px 100px;
+    gap: 5px;
+    justify-items: start;
+    align-items: center;
+}
+
+.menu-button {
+    cursor: pointer;
+    padding: 3px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.menu-button.selected, .add-project.selected {
+    background-color: var(--white-color);
+}
+
+.menu-button:hover , .add-project:hover{
+   
+    background-color: var(--white-color);
+}
+
+.content {
+    flex: 1;
+}
+
+.projects{
+    align-self: flex-end;
+    width: 100%;
+   
+
+}
+
+.add-project{
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
+   padding: 3px;
+    margin-top: 10px;
+}
