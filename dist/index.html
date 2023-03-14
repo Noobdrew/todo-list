@@ -10,7 +10,7 @@
 
 <body>
     <script src="index.bundle.js" defer></script>
-    <script src="projects.bundle.js" defer></script>
+    <script src="../src/projects.js" defer></script>
     <header>
         <div class="header-title">To Do List</div>
 
@@ -38,17 +38,18 @@
 
             <div class="projects">
                 <div class="project-title">Projects</div>
+                
                 <div class="new-project" data-project="1">
                     <div class="new-project-title">Project 1</div>
                     <div class="new-project-delete">&nbspX</div>
                 </div>
-          
+
                 <div class="add-project">+ Add project</div>
 
                 <div class="create-new-project">
                     <form action="#">
                         <input type="text" placeholder="Project Name" id='project-name' minlength="3" required
-                            oninvalid="ths.setCustomValidity('At least 3 characters')"
+                            oninvalid="this.setCustomValidity('At least 3 characters')"
                             oninput="setCustomValidity('')" />
                         <div class="new-project-buttons">
                             <input type="submit" value="Add project" class="new-project-buttons-add-project">
