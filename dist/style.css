@@ -78,7 +78,7 @@ footer {
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
-
+overflow: auto;
 }
 
 .sidebar-grid {
@@ -119,7 +119,7 @@ footer {
     margin-top: 50px;
     align-self: flex-end;
     width: 100%;
-
+position: relative;
 
 }
 
@@ -165,7 +165,7 @@ footer {
     justify-content: space-between;
     align-items: center;
 }
-.create-new-project input[type='button'] {
+.create-new-project input[type='button'],.create-new-project input[type='submit'] {
     width: 97px;
     height: 30px;
     font-size: 15px;
@@ -191,3 +191,8 @@ footer {
     background-color:#3c3a41;
 }
 
+.create-new-project{
+    position:absolute;
+    bottom: -40px;
+    visibility: hidden;
+}

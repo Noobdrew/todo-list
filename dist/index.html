@@ -42,17 +42,21 @@
                     <div class="new-project-title">Project 1</div>
                     <div class="new-project-delete">&nbspX</div>
                 </div>
+          
                 <div class="add-project">+ Add project</div>
-                <!-- <div class="create-new-project">
-                    <form action="#">
-                        <input type="text" placeholder="Project Name">
-                        <div class="new-project-buttons">
-                            <input type="button" value="Add project" class="new-project-buttons-add-project">
-                            <input type="button" value="Cancel" class="new-project-buttons-cancel">
-                        </div> -->
 
+                <div class="create-new-project">
+                    <form action="#">
+                        <input type="text" placeholder="Project Name" id='project-name' minlength="3" required
+                            oninvalid="ths.setCustomValidity('At least 3 characters')"
+                            oninput="setCustomValidity('')" />
+                        <div class="new-project-buttons">
+                            <input type="submit" value="Add project" class="new-project-buttons-add-project">
+                            <input type="button" value="Cancel" class="new-project-buttons-cancel">
+                        </div>
                     </form>
                 </div>
+
             </div>
         </div>
         <div class="content"></div>
