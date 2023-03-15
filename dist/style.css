@@ -5,11 +5,17 @@
     font-family: 'Golos Text', Helvetica, Arial, sans-serif;
     --white-color: #ffff;
     --main-color: #201F25;
+    --main-color-bright: #525158;
+    --dark-white: #c4cacf;
     --font-color: #E3E8E9;
     --font-color2: #f0f0f0;
     --acsent-color: #2D7DD2;
     --acsent-color2: #F7E733;
-    --acsent-color3: #F45D01;
+    --acsent-color3: #f78b49;
+    --high-priority: #FCCACA;
+    --meduim-priority: #FEE5CB;
+    --low-priority: #D6E9FE;
+
 }
 
 body {
@@ -78,7 +84,7 @@ footer {
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
-overflow: auto;
+    overflow: auto;
 }
 
 .sidebar-grid {
@@ -112,14 +118,19 @@ overflow: auto;
 }
 
 .content {
+    margin-top: 50px;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .projects {
     margin-top: 50px;
     align-self: flex-end;
     width: 100%;
-position: relative;
+    position: relative;
 
 }
 
@@ -160,12 +171,14 @@ position: relative;
     margin-bottom: 10px;
 }
 
-.new-project-buttons{
+.new-project-buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.create-new-project input[type='button'],.create-new-project input[type='submit'] {
+
+.create-new-project input[type='button'],
+.create-new-project input[type='submit'] {
     width: 97px;
     height: 30px;
     font-size: 15px;
@@ -173,26 +186,112 @@ position: relative;
     border: none;
 }
 
-.new-project-buttons-add-project{
+.new-project-buttons-add-project {
     background-color: var(--main-color);
     font-weight: bold;
     color: var(--font-color);
 }
-.new-project-buttons-cancel{
+
+.new-project-buttons-cancel {
     color: var(--main-color);
     font-weight: bold;
     background-color: var(--white-color);
 }
 
-.new-project-buttons-cancel:hover{
+.new-project-buttons-cancel:hover {
     background-color: #e7e7e7;
 }
-.new-project-buttons-add-project:hover{
-    background-color:#3c3a41;
+
+.new-project-buttons-add-project:hover {
+    background-color: #3c3a41;
 }
 
-.create-new-project{
-    position:absolute;
+.create-new-project {
+    position: absolute;
     bottom: -35px;
     visibility: hidden;
+}
+
+.task-conteiner {
+    width: 60%;
+}
+
+.task {
+    padding: 5px;
+    color: var(--main-color-bright);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--dark-white);
+    border-left: 1px solid var(--font-color2);
+    border-right: 1px solid var(--font-color2);
+    border-radius: 0px 0px 10px 10px;
+}
+
+.task button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.task-left,
+.task-right {
+    display: flex;
+    gap: 15px;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: var(--form-background);
+    /* Not removed via appearance */
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.13em solid currentColor;
+    border-radius: 10em;
+    transform: translateY(-0.075em);
+    background-color: rgb(255, 255, 255);
+
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.8em;
+    height: 0.8em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    /* Windows High Contrast Mode */
+    background-color: green;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.create-task {
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Golos Text', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    margin-top: 20px;
+    border: none;
+    background: transparent;
+    transition: ease-in-out 0.3s;
+}
+
+.create-task:hover{
+    border-radius: 15px;
+    background-color: var(--font-color2);
 }

@@ -13,6 +13,22 @@ const projectsArr = []
 let projectCount = 0
 
 
+class Project {
+    constructor(name, item) {
+        this.item = item
+        this.name = name
+    }
+
+} class ToDoList extends Project {
+    constructor(name, status, date, description, priority) {
+        this.name = name
+        this.status = status
+        this.date = date
+
+        this.priority = priority
+    }
+}
+
 //display and hide input form for creating new projects
 addProject.addEventListener('click', addProjectInput)
 addProjectCancel.addEventListener('click', hideInput)
@@ -26,7 +42,6 @@ function addProjectInput() {
 //create new projects
 addProjectButton.addEventListener('click', createNewProject)
 function createNewProject(e) {
-    console.log(projectName.value)
     if (projectName.value.length < 3) {
         return
     }
@@ -54,15 +69,17 @@ function createDomProject() {
     }
 }
 
+//select all newly created dom elements
 function getDomElements() {
     projects = document.querySelectorAll('.new-project')
     projectsDeleteButton = document.querySelectorAll('.new-project-delete')
     projectsDeleteButton.forEach(element => {
-        element.addEventListener('click', removeBook)
+        element.addEventListener('click', removeProject)
     });
 }
 
-function removeBook(e) {
+//remove project from page and from projectsArr
+function removeProject(e) {
     if (e.target.classList.contains('new-project-delete')) {
         e.srcElement.parentNode.classList.add('remove-project')
     }
@@ -75,19 +92,4 @@ function removeBook(e) {
     }
 }
 
-class Project {
-    constructor(name, item) {
-        this.item = item
-        this.name = name
-    }
-
-} class ToDoList extends Project {
-    constructor(name, status, date, description, priority) {
-        this.name = name
-        this.status = status
-        this.date = date
-        this.description = description
-        this.priority = priority
-    }
-}
 
