@@ -1,18 +1,5 @@
 //handles everything about project creation, deleting and managing
 
-const addProject = document.querySelector('.add-project')
-const createNewProjectElement = document.querySelector('.create-new-project')
-const addProjectButton = document.querySelector('.new-project-buttons-add-project')
-const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
-const projectName = document.getElementById('project-name')
-let projects = document.querySelectorAll('.new-project')
-let projectsDeleteButton = document.querySelectorAll('.new-project-delete')
-
-
-const projectsArr = []
-let projectCount = 0
-
-
 class Project {
     constructor(name, item) {
         this.item = item
@@ -24,10 +11,27 @@ class Project {
         this.name = name
         this.status = status
         this.date = date
-
         this.priority = priority
     }
 }
+const projectsArr = []
+let projectCount = 0
+
+//to insert dom elements better
+function insertAfter(newNode, existingNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+//create new projects module
+const createNewProjectsModule = (function(){
+
+const addProject = document.querySelector('.add-project')
+const createNewProjectElement = document.querySelector('.create-new-project')
+const addProjectButton = document.querySelector('.new-project-buttons-add-project')
+const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
+const projectName = document.getElementById('project-name')
+let projects = document.querySelectorAll('.new-project')
+let projectsDeleteButton = document.querySelectorAll('.new-project-delete')
+
 
 //display and hide input form for creating new projects
 addProject.addEventListener('click', addProjectInput)
@@ -64,9 +68,6 @@ function createDomProject() {
     </div>`
     addProject.parentNode.insertBefore(newProject, addProject)
 
-    function insertAfter(newNode, existingNode) {
-        existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-    }
 }
 
 //select all newly created dom elements
@@ -92,4 +93,4 @@ function removeProject(e) {
     }
 }
 
-
+})()

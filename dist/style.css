@@ -30,6 +30,7 @@ header {
     height: 6vh;
     color: var(--font-color);
     padding: 1vh;
+    padding-left: 20px;
     font-size: 3vh;
     font-weight: bolder;
     background-color: var(--main-color);
