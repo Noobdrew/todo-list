@@ -1,30 +1,30 @@
-<<<<<<< HEAD
-=======
 //handles everything about project creation, deleting and managing
 
-const projectsDom = document.querySelector('.projects')
 const addProject = document.querySelector('.add-project')
 const createNewProjectElement = document.querySelector('.create-new-project')
 const addProjectButton = document.querySelector('.new-project-buttons-add-project')
 const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
 const projectName = document.getElementById('project-name')
+let projects = document.querySelectorAll('.new-project')
+let projectsDeleteButton = document.querySelectorAll('.new-project-delete')
+
 
 const projectsArr = []
 let projectCount = 0
 
 
+//display and hide input form for creating new projects
 addProject.addEventListener('click', addProjectInput)
-addProjectButton.addEventListener('click', createNewProject)
 addProjectCancel.addEventListener('click', hideInput)
-
 function hideInput() {
     createNewProjectElement.style.visibility = 'hidden'
 }
-
 function addProjectInput() {
     createNewProjectElement.style.visibility = 'visible'
 }
 
+//create new projects
+addProjectButton.addEventListener('click', createNewProject)
 function createNewProject(e) {
     console.log(projectName.value)
     if (projectName.value.length < 3) {
@@ -32,24 +32,47 @@ function createNewProject(e) {
     }
     e.preventDefault();
     projectsArr[projectCount] = new Project(projectName.value, {})
-    projectCount++
     createDomProject()
     createNewProjectElement.style.visibility = 'hidden'
-    projectName.value =''
+    projectName.value = ''
+    getDomElements()
+    projectCount++
 }
 
-function createDomProject(){
+//create the dom element for the projects object
+function createDomProject() {
     const newProject = document.createElement('div')
-    newProject.innerHTML=`  
-    <div class="new-project" data-project="1">
+    newProject.innerHTML = `  
+    <div class="new-project" data-index="${projectCount}">
         <div class="new-project-title">${projectName.value}</div>
         <div class="new-project-delete">&nbspX</div>
     </div>`
-   addProject.parentNode.insertBefore(newProject, addProject)
+    addProject.parentNode.insertBefore(newProject, addProject)
+
+    function insertAfter(newNode, existingNode) {
+        existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+    }
 }
 
-function insertAfter(newNode, existingNode) {
-    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+function getDomElements() {
+    projects = document.querySelectorAll('.new-project')
+    projectsDeleteButton = document.querySelectorAll('.new-project-delete')
+    projectsDeleteButton.forEach(element => {
+        element.addEventListener('click', removeBook)
+    });
+}
+
+function removeBook(e) {
+    if (e.target.classList.contains('new-project-delete')) {
+        e.srcElement.parentNode.classList.add('remove-project')
+    }
+    for (const project of projects) {
+        if (project.classList.contains('remove-project')) {
+            project.remove()
+            delete projectsArr[parseInt(project.dataset.index)]
+
+        }
+    }
 }
 
 class Project {
@@ -57,11 +80,6 @@ class Project {
         this.item = item
         this.name = name
     }
-
-    deleteProject() {
-
-    }
-
 
 } class ToDoList extends Project {
     constructor(name, status, date, description, priority) {
@@ -72,4 +90,4 @@ class Project {
         this.priority = priority
     }
 }
->>>>>>> parent of 825665a (added remove function)
+
