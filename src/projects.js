@@ -6,6 +6,8 @@ const createNewProjectElement = document.querySelector('.create-new-project')
 const addProjectButton = document.querySelector('.new-project-buttons-add-project')
 const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
 const projectName = document.getElementById('project-name')
+let projectDelete = document.querySelectorAll('.new-project-delete')
+ 
 
 const projectsArr = []
 let projectCount = 0
@@ -14,6 +16,8 @@ let projectCount = 0
 addProject.addEventListener('click', addProjectInput)
 addProjectButton.addEventListener('click', createNewProject)
 addProjectCancel.addEventListener('click', hideInput)
+
+
 
 function hideInput() {
     createNewProjectElement.style.visibility = 'hidden'
@@ -24,7 +28,7 @@ function addProjectInput() {
 }
 
 function createNewProject(e) {
-    console.log(projectName.value)
+  
     if (projectName.value.length < 3) {
         return
     }
@@ -34,20 +38,30 @@ function createNewProject(e) {
     createDomProject()
     createNewProjectElement.style.visibility = 'hidden'
     projectName.value =''
+    projectDelete = document.querySelectorAll('.new-project-delete')
+   
 }
 
 function createDomProject(){
     const newProject = document.createElement('div')
     newProject.innerHTML=`  
-    <div class="new-project" data-project="1">
+    <div class="new-project" data-project="${projectCount-1}">
         <div class="new-project-title">${projectName.value}</div>
         <div class="new-project-delete">&nbspX</div>
     </div>`
    addProject.parentNode.insertBefore(newProject, addProject)
+  
 }
 
 function insertAfter(newNode, existingNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
+projectDelete.forEach(element => {
+    element.addEventListener('click', removeProject)
+});
+function removeProject(e){
+    console.log('deleted')
 }
 
 class Project {
@@ -57,7 +71,7 @@ class Project {
     }
 
     deleteProject() {
-
+        return console.log('this project is removed')
     }
 
 
