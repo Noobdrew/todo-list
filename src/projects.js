@@ -10,6 +10,7 @@ class Project {
         const projectElement = document.querySelector(`[data-index='${index}']`)
         projectElement.remove()
         delete projectsArr[index]
+        localStorage.removeItem(`project ${index}`)
     }
 
 
@@ -23,37 +24,61 @@ class Project {
 }
 
 
-
 const projectsArr = []
 const addProject = document.querySelector('.add-project')
 
 let projectCount = 0
-projectsArr[0] = new Project('project 1', {}, 0)
-projectsArr[1] = new Project('project 2', {}, 1)
+// projectsArr[0] = new Project('project 1', {}, 0)
+// projectsArr[1] = new Project('project 2', {}, 1)
+
+
+function storeProjects() {
+    projectsArr.forEach(element => {
+        let elementJson = JSON.stringify(element)
+        localStorage.setItem(`project ${element.index}`, elementJson)
+    });
+}
+
+
+
+
 //to insert dom elements better
 function insertAfter(newNode, existingNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
 
-function createMissingProjects(){
-    projectsArr.forEach(element => {
-       
-        const newProject = document.createElement('div')
-        newProject.innerHTML = `  
-        <div class="new-project" data-index="${element.index}">
-            <div class="new-project-title">${element.name}</div>
-            <div class="new-project-delete">&nbspX</div>
-        </div>`
-        addProject.parentNode.insertBefore(newProject, addProject)
-    });
+function createMissingProjects() {
+    for (let i = 0; i < 1000; i++) {
+
+        if (JSON.parse(localStorage.getItem(`project ${i}`)) != null) {
+
+            let storageObjects = JSON.parse(localStorage.getItem(`project ${i}`))
+
+            projectsArr[i] = new Project(storageObjects.name, storageObjects.item, storageObjects.index)
+
+            const newProject = document.createElement('div')
+            newProject.innerHTML = `  
+            <div class="new-project" data-index="${storageObjects.index}">
+                <div class="new-project-title">${storageObjects.name}</div>
+                <div class="new-project-delete">&nbspX</div>
+            </div>`
+            addProject.parentNode.insertBefore(newProject, addProject)
+            projectCount = 1+storageObjects.index
+
+        }
+
+
+    }
 }
 
 //create projects from local storage
 createMissingProjects()
-projectCount = projectsArr.length
+
+
+
 //create new projects module
 const createNewProjectsModule = (function () {
-   
+
     const createNewProjectElement = document.querySelector('.create-new-project')
     const addProjectButton = document.querySelector('.new-project-buttons-add-project')
     const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
@@ -73,6 +98,7 @@ const createNewProjectsModule = (function () {
 
     //create new projects
     addProjectButton.addEventListener('click', createNewProject)
+    getDomElements()
     function createNewProject(e) {
         if (projectName.value.length < 3) {
             return
@@ -83,7 +109,9 @@ const createNewProjectsModule = (function () {
         createNewProjectElement.style.visibility = 'hidden'
         projectName.value = ''
         getDomElements()
+        storeProjects()
         projectCount++
+
     }
 
     //remove projects 
@@ -116,5 +144,5 @@ const createNewProjectsModule = (function () {
             element.addEventListener('click', removeProject)
         });
     }
-    
+
 })()
