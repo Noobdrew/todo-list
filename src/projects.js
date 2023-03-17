@@ -7,13 +7,14 @@ class Project {
         this.index = index
     }
     deleteProject(index) {
-
         const projectElement = document.querySelector(`[data-index='${index}']`)
         projectElement.remove()
         delete projectsArr[index]
     }
+
+
 } class ToDoList extends Project {
-    constructor(name, status, date, description, priority) {
+    constructor(name, status, date, priority) {
         this.name = name
         this.status = status
         this.date = date
@@ -23,30 +24,42 @@ class Project {
 
 
 
-const testProject = new Project('test1', {})
 const projectsArr = []
-let projectCount = 0
+const addProject = document.querySelector('.add-project')
 
+let projectCount = 0
+projectsArr[0] = new Project('project 1', {}, 0)
+projectsArr[1] = new Project('project 2', {}, 1)
 //to insert dom elements better
 function insertAfter(newNode, existingNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
+
+function createMissingProjects(){
+    projectsArr.forEach(element => {
+       
+        const newProject = document.createElement('div')
+        newProject.innerHTML = `  
+        <div class="new-project" data-index="${element.index}">
+            <div class="new-project-title">${element.name}</div>
+            <div class="new-project-delete">&nbspX</div>
+        </div>`
+        addProject.parentNode.insertBefore(newProject, addProject)
+    });
+}
+
+//create projects from local storage
+createMissingProjects()
+projectCount = projectsArr.length
 //create new projects module
 const createNewProjectsModule = (function () {
-
-    const addProject = document.querySelector('.add-project')
+   
     const createNewProjectElement = document.querySelector('.create-new-project')
     const addProjectButton = document.querySelector('.new-project-buttons-add-project')
     const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
     const projectName = document.getElementById('project-name')
     let projects = document.querySelectorAll('.new-project')
     let projectsDeleteButton = document.querySelectorAll('.new-project-delete')
-
-    console.log(projects)
-
-
-
-
 
     //display and hide input form for creating new projects
     addProject.addEventListener('click', addProjectInput)
@@ -71,31 +84,26 @@ const createNewProjectsModule = (function () {
         projectName.value = ''
         getDomElements()
         projectCount++
-
-        //new tests
-        console.log(projects)
-        projects.forEach(element => {
-            element.addEventListener('click', removeProject)
-        });
-
     }
+
+    //remove projects 
     function removeProject(e) {
-        if (e.target.classList.contains('new-project-delete')){
+        if (e.target.classList.contains('new-project-delete')) {
             let removeIndex = parseInt(e.srcElement.parentElement.dataset.index)
-            console.log(removeIndex)
+
             projectsArr[removeIndex].deleteProject(removeIndex)
         }
-           
+
     }
 
     //create the dom element for the projects object
     function createDomProject() {
         const newProject = document.createElement('div')
         newProject.innerHTML = `  
-    <div class="new-project" data-index="${projectCount}">
-        <div class="new-project-title">${projectName.value}</div>
-        <div class="new-project-delete">&nbspX</div>
-    </div>`
+        <div class="new-project" data-index="${projectCount}">
+            <div class="new-project-title">${projectName.value}</div>
+            <div class="new-project-delete">&nbspX</div>
+        </div>`
         addProject.parentNode.insertBefore(newProject, addProject)
 
     }
@@ -104,23 +112,9 @@ const createNewProjectsModule = (function () {
     function getDomElements() {
         projects = document.querySelectorAll('.new-project')
         projectsDeleteButton = document.querySelectorAll('.new-project-delete')
-        // projectsDeleteButton.forEach(element => {
-        //     element.addEventListener('click', removeProject)
-        // });
+        projects.forEach(element => {
+            element.addEventListener('click', removeProject)
+        });
     }
-
-    //remove project from page and from projectsArr
-    // function removeProject(e) {
-    //     if (e.target.classList.contains('new-project-delete')) {
-    //         e.srcElement.parentNode.classList.add('remove-project')
-    //     }
-    //     for (const project of projects) {
-    //         if (project.classList.contains('remove-project')) {
-    //             project.remove()
-    //             delete projectsArr[parseInt(project.dataset.index)]
-
-    //         }
-    //     }
-    // }
-
+    
 })()
