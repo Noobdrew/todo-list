@@ -1,12 +1,16 @@
 //handles everything about project creation, deleting and managing
 
 class Project {
-    constructor(name, item) {
+    constructor(name, item, index) {
         this.item = item
         this.name = name
+        this.index = index
     }
-    deleteProject() {
-      const projectElement = document.querySelector(`[data-index='${projectCount}]]`)
+    deleteProject(index) {
+
+        const projectElement = document.querySelector(`[data-index='${index}']`)
+        projectElement.remove()
+        delete projectsArr[index]
     }
 } class ToDoList extends Project {
     constructor(name, status, date, description, priority) {
@@ -16,6 +20,8 @@ class Project {
         this.priority = priority
     }
 }
+
+
 
 const testProject = new Project('test1', {})
 const projectsArr = []
@@ -36,6 +42,11 @@ const createNewProjectsModule = (function () {
     let projects = document.querySelectorAll('.new-project')
     let projectsDeleteButton = document.querySelectorAll('.new-project-delete')
 
+    console.log(projects)
+
+
+
+
 
     //display and hide input form for creating new projects
     addProject.addEventListener('click', addProjectInput)
@@ -54,12 +65,27 @@ const createNewProjectsModule = (function () {
             return
         }
         e.preventDefault();
-        projectsArr[projectCount] = new Project(projectName.value, {})
+        projectsArr[projectCount] = new Project(projectName.value, {}, projectCount)
         createDomProject()
         createNewProjectElement.style.visibility = 'hidden'
         projectName.value = ''
         getDomElements()
         projectCount++
+
+        //new tests
+        console.log(projects)
+        projects.forEach(element => {
+            element.addEventListener('click', removeProject)
+        });
+
+    }
+    function removeProject(e) {
+        if (e.target.classList.contains('new-project-delete')){
+            let removeIndex = parseInt(e.srcElement.parentElement.dataset.index)
+            console.log(removeIndex)
+            projectsArr[removeIndex].deleteProject(removeIndex)
+        }
+           
     }
 
     //create the dom element for the projects object
@@ -78,23 +104,23 @@ const createNewProjectsModule = (function () {
     function getDomElements() {
         projects = document.querySelectorAll('.new-project')
         projectsDeleteButton = document.querySelectorAll('.new-project-delete')
-        projectsDeleteButton.forEach(element => {
-            element.addEventListener('click', removeProject)
-        });
+        // projectsDeleteButton.forEach(element => {
+        //     element.addEventListener('click', removeProject)
+        // });
     }
 
     //remove project from page and from projectsArr
-    function removeProject(e) {
-        if (e.target.classList.contains('new-project-delete')) {
-            e.srcElement.parentNode.classList.add('remove-project')
-        }
-        for (const project of projects) {
-            if (project.classList.contains('remove-project')) {
-                project.remove()
-                delete projectsArr[parseInt(project.dataset.index)]
+    // function removeProject(e) {
+    //     if (e.target.classList.contains('new-project-delete')) {
+    //         e.srcElement.parentNode.classList.add('remove-project')
+    //     }
+    //     for (const project of projects) {
+    //         if (project.classList.contains('remove-project')) {
+    //             project.remove()
+    //             delete projectsArr[parseInt(project.dataset.index)]
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 
 })()
