@@ -119,6 +119,7 @@ footer {
 }
 
 .content {
+
     margin-top: 50px;
     flex: 1;
     display: flex;
@@ -179,7 +180,9 @@ footer {
 }
 
 .create-new-project input[type='button'],
-.create-new-project input[type='submit'] {
+.create-new-project input[type='submit'],
+.add-task,
+.cancel {
     width: 97px;
     height: 30px;
     font-size: 15px;
@@ -187,24 +190,30 @@ footer {
     border: none;
 }
 
-.new-project-buttons-add-project {
+.new-project-buttons-add-project,
+.add-task {
     background-color: var(--main-color);
     font-weight: bold;
     color: var(--font-color);
 }
 
-.new-project-buttons-cancel {
+.new-project-buttons-cancel,
+.cancel {
     color: var(--main-color);
     font-weight: bold;
     background-color: var(--white-color);
 }
 
-.new-project-buttons-cancel:hover {
+.new-project-buttons-cancel:hover,
+.cancel:hover {
     background-color: #e7e7e7;
+    cursor: pointer;
 }
 
-.new-project-buttons-add-project:hover {
+.new-project-buttons-add-project:hover,
+.add-task:hover {
     background-color: #3c3a41;
+    cursor: pointer;
 }
 
 .create-new-project {
@@ -214,6 +223,7 @@ footer {
 }
 
 .task-conteiner {
+    position: relative;
     width: 60%;
 }
 
@@ -303,4 +313,28 @@ input[type="checkbox"]:checked::before {
     width: 10px;
     height: 10px;
     border-radius: 20px;
+}
+
+.create-new-task-form {
+    bottom: -95px;
+    left: 20%;
+    position: absolute;
+    display: flex;
+    padding: 15px;
+    background-color: var(--font-color2);
+    border-radius: 16px;
+    width: 55%;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    visibility: hidden;
+}
+
+.create-new-task-form,
+.task-form-bottom {
+    margin-top: 10px;
+    gap: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

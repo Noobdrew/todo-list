@@ -60,7 +60,24 @@
         </div>
         <div class="content">
             <div class="task-conteiner">
-                <div class="task" data-task="0">
+                <div class="create-new-task-form">
+                    <form action="#">
+                        <input type="text" placeholder="What is your task?" required>
+                        <input type="date" name="date" id="date">
+                        <select name="priority" id="priority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                        <div class="task-form-bottom">
+                            <input type="submit" value="Add task" class="add-task"></input>
+                            <input type="button" value="Cancel" class="cancel"></input>
+                        </div>
+                   
+                    </form>
+                </div>
+            </div>
+                <!--    <div class="task" data-task="0">
                     <div class="task-left">
                         <input type="checkbox" name="status" id="status">
                         <div class="priority" style="background-color: #66a9f5;"></div>
@@ -86,14 +103,14 @@
                         <button class="delete-task"><img src="./img/delete.png" alt="delete" width="20px"></button>
                     </div>
 
-                </div>
-            </div>
+                
+            
 
-            <button class="create-task">+ Add new task</button>
-
+            <button class="create-task">+ Add new task</button> -->
+                
         </div>
     </div>
-    <footer>Made by&nbsp<a href="https://github.com/Noobdrew">Noobdrew</a> </footer>
+        <footer>Made by&nbsp<a href="https://github.com/Noobdrew">Noobdrew</a> </footer>
 </body>
 
 </html>

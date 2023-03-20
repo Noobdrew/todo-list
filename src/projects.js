@@ -30,9 +30,6 @@ const addProject = document.querySelector('.add-project')
 
 
 let projectCount = 0
-// projectsArr[0] = new Project('project 1', {}, 0)
-// projectsArr[1] = new Project('project 2', {}, 1)
-
 
 function storeProjects() {
     projectsArr.forEach(element => {
@@ -151,20 +148,30 @@ const createNewProjectsModule = (function () {
             element.addEventListener('click', renderContent)
         });
     }
-
-    //render screen content
-
-
 })()
+
+const inboxElement= document.querySelector('.inbox')
+const todayElement = document.querySelector('.today')
+const weekElement = document.querySelector('.week')
+const completedElement = document.querySelector('.completed')
+
+const inbox = new Project('Inbox', [{ status: true, index: 5, name: 'clean', priority: 'red', date: '10/02/21' },
+{ status: false, index: 7, name: 'wash', priority: 'orange', date: '05/12/22' },
+{ status: false, index: 15, name: 'dog', priority: 'lightskyblue', date: '02/05/12' },], undefined)
+
 
 //screen render stuff
 const content = document.querySelector('.content')
+
+renderInbox(inbox)
 function renderContent(e) {
-    console.log(this)
+    
     if (this.classList.contains('inbox')) {
 
-        renderInbox()
-        //render inbox func goes here
+        if(!this.classList.contains('selected')){
+            renderInbox(inbox)
+        }
+  
     }
     if (this.classList.contains('today')) {
         console.log('today')
@@ -180,47 +187,51 @@ function renderContent(e) {
     //for project render
     if (this.dataset.index != undefined) {
         console.log(parseInt(this.dataset.index))
+        //render project func goes here
     }
 
 }
 
-function renderInbox() {
+function renderInbox(element) {
+    const taskContainer = document.querySelector('.task-conteiner')
+ 
 
-    const taskContainer = document.createElement('div')
-    taskContainer.classList.add('task-conteiner')
+    const newTaskButton = document.createElement('button')
+    newTaskButton.classList.add('create-task')
+    newTaskButton.textContent='+ Add new task'
 
     let i = 0
-    inbox.item.forEach(element => {
+    inbox.item.forEach(e => {
 
         const task = document.createElement('div')
         task.classList.add('task')
-        task.dataset.task = inbox.item[i].index
-        console.log(inbox.item[i].index)
+        task.dataset.task = element.item[i].index
+        
         task.innerHTML = `
         <div class="task-left">
             <input type="checkbox" name="status" id="status">
-            <div class="priority" style="background-color: ${inbox.item[i].priority}";></div>
-            <div class="task-name">${inbox.item[i].name}</div>
+            <div class="priority" style="background-color: ${element.item[i].priority}";></div>
+            <div class="task-name">${element.item[i].name}</div>
         </div>
 
         <div class="task-right">
-            <div class="date-text">${inbox.item[i].date}</div>
+            <div class="date-text">${element.item[i].date}</div>
             <button class="edit-task"><img src="./img/edit.png" alt="edit" width="20px"></button>
             <button class="delete-task"><img src="./img/delete.png" alt="delete" width="20px"></button>
         </div>
         `
         taskContainer.appendChild(task)
-        console.log(task)
+      
         i++
     });
+
     content.appendChild(taskContainer)
+    content.appendChild(newTaskButton)
 
-
+    inboxElement.classList.add('selected')
 }
 
-const inbox = new Project('Inbox', [{ status: true, index: 5, name: 'clean', priority: 'red', date: '10/02/21' },
-{ status: false, index: 7, name: 'wash', priority: 'orange', date: '05/12/22' }, { status: false, index: 15, name: 'dog', priority: 'lightskyblue', date: '02/05/12' }], undefined)
-const inboxScreenModule = (function () {
 
+function addNewTask(){
 
-}())
+}
