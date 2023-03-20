@@ -12,9 +12,9 @@
     --acsent-color: #2D7DD2;
     --acsent-color2: #F7E733;
     --acsent-color3: #f78b49;
-    --high-priority: #FCCACA;
-    --meduim-priority: #FEE5CB;
-    --low-priority: #D6E9FE;
+    --high-priority: #fa5b5b;
+    --meduim-priority: #f5e170;
+    --low-priority: #66a9f5;
 
 }
 
@@ -237,6 +237,7 @@ footer {
 .task-left,
 .task-right {
     display: flex;
+    align-items: center;
     gap: 15px;
 }
 
@@ -292,7 +293,14 @@ input[type="checkbox"]:checked::before {
     transition: ease-in-out 0.3s;
 }
 
-.create-task:hover{
+.create-task:hover {
     border-radius: 15px;
     background-color: var(--font-color2);
+}
+
+.priority {
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
 }

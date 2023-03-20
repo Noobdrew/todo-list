@@ -4,13 +4,14 @@
 <head>
     <meta charset="utf-8" />
     <title>To Do List</title>
-    <script src="https://unpkg.com/lodash@4.17.20"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <script src="index.bundle.js" defer></script>
+
     <script src="../src/projects.js" defer></script>
+    <script src="../src/index.js" defer></script>
     <header>
         <div class="header-title">To Do List</div>
 
@@ -61,7 +62,8 @@
             <div class="task-conteiner">
                 <div class="task" data-task="0">
                     <div class="task-left">
-                        <input type="checkbox" name="status" id="status" class="high">
+                        <input type="checkbox" name="status" id="status">
+                        <div class="priority" style="background-color: #66a9f5;"></div>
                         <div class="task-name">Clean the house</div>
                     </div>
 
