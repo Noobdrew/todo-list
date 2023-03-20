@@ -309,7 +309,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .priority {
-    background-color: red;
+    background-color: var(--font-color2);
     width: 10px;
     height: 10px;
     border-radius: 20px;
