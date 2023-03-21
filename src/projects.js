@@ -222,23 +222,23 @@ function renderInbox(element) {
     const taskContainer = document.querySelector('.task-conteiner')
     taskContainer.innerHTML = `
     <div class="form-conteiner">
-    <form action="#" class="create-new-task-form">
-        <div class="task-form-top">
-            <input type="text" placeholder="What is your task?" required id="task-name">
-            <input type="date" name="date" id="task-date">
-            <select name="priority" id="task-priority">
-            <option  value="red">High</option>
-            <option value="orange">Medium</option>
-            <option value="#66a9f5">Low</option>
-            </select>
-        </div>
+        <form action="#" class="create-new-task-form">
+            <div class="task-form-top">
+                <input type="text" placeholder="What is your task?" required id="task-name">
+                <input type="date" name="date" id="task-date">
+                <select name="priority" id="task-priority">
+                    <option  value="red">High</option>
+                    <option value="orange">Medium</option>
+                    <option value="#66a9f5">Low</option>
+                </select>
+            </div>
      
-        <div class="task-form-bottom">
-            <input type="submit" value="Add task" class="add-task"></input>
-            <input type="button" value="Cancel" class="task-cancel"></input>
-        </div>
-    </form>
-</div>
+            <div class="task-form-bottom">
+                <input type="submit" value="Add task" class="add-task"></input>
+                <input type="button" value="Cancel" class="task-cancel"></input>
+            </div>
+        </form>
+    </div>
     `
 
     const newTaskButton = document.createElement('button')
