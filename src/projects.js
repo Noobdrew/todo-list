@@ -227,6 +227,7 @@ function renderInbox(element) {
                 <input type="text" placeholder="What is your task?" required id="task-name">
                 <input type="date" name="date" id="task-date">
                 <select name="priority" id="task-priority">
+                
                     <option  value="red">High</option>
                     <option value="orange">Medium</option>
                     <option value="#66a9f5">Low</option>
