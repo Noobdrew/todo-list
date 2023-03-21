@@ -14,14 +14,40 @@ class Project {
     }
 
 
-} class ToDoList extends Project {
+} class ToDoList {
     constructor(name, index, status, date, priority) {
         this.name = name
         this.status = status
         this.date = date
         this.priority = priority
         this.index = index
+        this.formatedDay = this.formatDate()
+    } formatDate() {
+
+        const dateObj = this.date
+        const dateDay = dateObj.getDate()
+        const dateMonth = dateObj.getMonth() + 1
+        const fullYear = dateObj.getFullYear()
+        const formatYear = String(fullYear).substring(2, 4)
+
+        if(dateObj=='Invalid Date'){
+           return '--/--/--'
+        }
+        const formatedDay = dateDay.toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        })
+        const formatedMonth = dateMonth.toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        })
+
+        const formatDate = (`${formatedDay}/${formatedMonth}/${formatYear}`)
+        console.log(dateObj)
+        return formatDate
     }
+
+
 }
 
 
@@ -91,6 +117,7 @@ const createNewProjectsModule = (function () {
     addProjectCancel.addEventListener('click', hideInput)
     function hideInput() {
         createNewProjectElement.style.visibility = 'hidden'
+        projectName.value = ''
     }
     function addProjectInput() {
         createNewProjectElement.style.visibility = 'visible'
@@ -150,14 +177,14 @@ const createNewProjectsModule = (function () {
     }
 })()
 
-const inboxElement= document.querySelector('.inbox')
+const inboxElement = document.querySelector('.inbox')
 const todayElement = document.querySelector('.today')
 const weekElement = document.querySelector('.week')
 const completedElement = document.querySelector('.completed')
 
-const inbox = new Project('Inbox', [{ status: true, index: 5, name: 'clean', priority: 'red', date: '10/02/21' },
-{ status: false, index: 7, name: 'wash', priority: 'orange', date: '05/12/22' },
-{ status: false, index: 15, name: 'dog', priority: 'lightskyblue', date: '02/05/12' },], undefined)
+const inbox = new Project('Inbox',
+    [],
+    undefined)
 
 
 //screen render stuff
@@ -165,13 +192,14 @@ const content = document.querySelector('.content')
 
 renderInbox(inbox)
 function renderContent(e) {
-    
+
     if (this.classList.contains('inbox')) {
 
-        if(!this.classList.contains('selected')){
+        if (!this.classList.contains('selected')) {
             renderInbox(inbox)
+            inboxElement.classList.add('selected')
         }
-  
+
     }
     if (this.classList.contains('today')) {
         console.log('today')
@@ -194,19 +222,38 @@ function renderContent(e) {
 
 function renderInbox(element) {
     const taskContainer = document.querySelector('.task-conteiner')
- 
+    taskContainer.innerHTML = `
+    <div class="form-conteiner">
+    <form action="#" class="create-new-task-form">
+        <div class="task-form-top">
+            <input type="text" placeholder="What is your task?" required id="task-name">
+            <input type="date" name="date" id="task-date">
+            <select name="priority" id="task-priority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+     
+        <div class="task-form-bottom">
+            <input type="submit" value="Add task" class="add-task"></input>
+            <input type="button" value="Cancel" class="task-cancel"></input>
+        </div>
+    </form>
+</div>
+    `
 
     const newTaskButton = document.createElement('button')
     newTaskButton.classList.add('create-task')
-    newTaskButton.textContent='+ Add new task'
+    newTaskButton.textContent = '+ Add new task'
 
     let i = 0
-    inbox.item.forEach(e => {
+    element.item.forEach(e => {
 
         const task = document.createElement('div')
         task.classList.add('task')
         task.dataset.task = element.item[i].index
-        
+
         task.innerHTML = `
         <div class="task-left">
             <input type="checkbox" name="status" id="status">
@@ -215,23 +262,74 @@ function renderInbox(element) {
         </div>
 
         <div class="task-right">
-            <div class="date-text">${element.item[i].date}</div>
+            <div class="date-text">${element.item[i].formatedDay}</div>
             <button class="edit-task"><img src="./img/edit.png" alt="edit" width="20px"></button>
             <button class="delete-task"><img src="./img/delete.png" alt="delete" width="20px"></button>
         </div>
         `
         taskContainer.appendChild(task)
-      
+
         i++
     });
-
+    taskContainer.appendChild(newTaskButton)
     content.appendChild(taskContainer)
-    content.appendChild(newTaskButton)
-
-    inboxElement.classList.add('selected')
-}
+    
 
 
-function addNewTask(){
+    //create new tasks
+    const addNewTaskButton = document.querySelector('.create-task')
+    const newTaskForm = document.querySelector('.create-new-task-form')
+    const taskCancel = document.querySelector('.task-cancel')
+    const addTask = document.querySelector('.add-task')
+    const taskName = document.querySelector('#task-name')
+    const taskDate = document.querySelector('#task-date')
+    const taskPriority = document.querySelector('#task-priority')
+
+    //show task form
+    addNewTaskButton.addEventListener('click', showTaskForm)
+    function showTaskForm() {
+
+        newTaskForm.style.visibility = 'visible'
+        taskName.value = ''
+        taskDate.value = ''
+        taskPriority.value = 'High'
+    }
+
+    //hide task form
+    taskCancel.addEventListener('click', hideTaskForm)
+    function hideTaskForm() {
+        newTaskForm.style.visibility = 'hidden'
+
+    }
+
+    // class ToDoList {
+    //     constructor(name, index, status, date, priority)
+
+    addTask.addEventListener('click', createNewTask)
+    function createNewTask(e) {
+        e.preventDefault()
+
+        let taskCount = element.item.length
+
+
+        console.log(taskDate.value)
+
+        let day = parseInt((taskDate.value).substring(8, 10))
+        let month = parseInt((taskDate.value).substring(5, 7))
+        let year = parseInt((taskDate.value).substring(0, 4))
+
+        const jsDate = new Date(`${year}-${month}-${day}`)
+        console.log(jsDate.getDate()) //for day
+        console.log(jsDate.getMonth()) //for month
+        console.log(jsDate.getFullYear()) //for year
+
+
+        element.item[taskCount] = new ToDoList(taskName.value, taskCount, false, jsDate, taskPriority.value)
+        console.log(element.item)
+
+        renderInbox(element)
+        hideTaskForm()
+       
+    }
 
 }

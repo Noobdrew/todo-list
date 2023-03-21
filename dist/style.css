@@ -182,7 +182,7 @@ footer {
 .create-new-project input[type='button'],
 .create-new-project input[type='submit'],
 .add-task,
-.cancel {
+.task-cancel {
     width: 97px;
     height: 30px;
     font-size: 15px;
@@ -198,14 +198,14 @@ footer {
 }
 
 .new-project-buttons-cancel,
-.cancel {
+.task-cancel {
     color: var(--main-color);
     font-weight: bold;
     background-color: var(--white-color);
 }
 
 .new-project-buttons-cancel:hover,
-.cancel:hover {
+.task-cancel:hover {
     background-color: #e7e7e7;
     cursor: pointer;
 }
@@ -223,6 +223,10 @@ footer {
 }
 
 .task-conteiner {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 60%;
 }
@@ -231,6 +235,7 @@ footer {
     padding: 5px;
     color: var(--main-color-bright);
     display: flex;
+   width: 100%;
     justify-content: space-between;
     border-bottom: 1px solid var(--dark-white);
     border-left: 1px solid var(--font-color2);
@@ -293,6 +298,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .create-task {
+    width: 200px;
     padding: 10px;
     cursor: pointer;
     font-family: 'Golos Text', Helvetica, Arial, sans-serif;
@@ -315,26 +321,41 @@ input[type="checkbox"]:checked::before {
     border-radius: 20px;
 }
 
-.create-new-task-form {
-    bottom: -95px;
+.form-conteiner form {
+    bottom: -50px;
     left: 20%;
     position: absolute;
-    display: flex;
+
     padding: 15px;
     background-color: var(--font-color2);
     border-radius: 16px;
     width: 55%;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: auto;
     visibility: hidden;
 }
 
 .create-new-task-form,
+.create-new-task-form form,
+.task-form-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-new-task-form,
 .task-form-bottom {
-    margin-top: 10px;
+    margin-top: 0px;
     gap: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.create-new-task-form input[type='button'],
+.create-new-task-form input[type='submit'] {
+    width: 120px;
 }
