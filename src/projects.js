@@ -46,22 +46,37 @@ class Project {
         console.log(dateObj)
         return formatDate
     }
+    checkTask() {
+        const checkbox = document.querySelector(`[data-checkbox="${this.index}"]`)
+        console.log(checkbox)
+        checkbox.addEventListener('change', (e) => {
+            this.status = e.target.checked
+        })
 
+    }
 
 }
 
-const inbox = new Project('Inbox', [], undefined)
+let inbox = new Project('Inbox', [], undefined)
 const projectsArr = []
+
 const addProject = document.querySelector('.add-project')
+let allCheckboxes = document.querySelectorAll('#status')
 
-
-let projectCount = 0
+let projectCount = 1
 
 function storeInbox() {
     let elementJson = JSON.stringify(inbox)
     localStorage.setItem(`project ${inbox.index}`, elementJson)
+    
 }
-
+function getInboxData(){
+    if (JSON.parse(localStorage.getItem(`project undefined`)) != null) {
+        console.log('getting json inbox data')
+        let storageObjects = JSON.parse(localStorage.getItem(`project undefined`)) 
+        inbox = new Project(storageObjects.name, storageObjects.item, storageObjects.index)
+    }
+}
 function storeProjects() {
     projectsArr.forEach(element => {
         let elementJson = JSON.stringify(element)
@@ -96,14 +111,14 @@ function createMissingProjects() {
             projectCount = 1 + storageObjects.index
 
         }
-
+       
 
     }
 }
 
 //create projects from local storage
 createMissingProjects()
-
+getInboxData()
 
 let menuButtons = document.querySelectorAll('.menu-button')
 let projects = document.querySelectorAll('.new-project')
@@ -239,6 +254,7 @@ function renderContent(e) {
 function renderInbox(element, DomElement) {
 
     const taskContainer = document.querySelector('.task-conteiner')
+    //reset the screen
     taskContainer.innerHTML = `
     <div class="form-conteiner">
         <form action="#" class="create-new-task-form">
@@ -265,6 +281,7 @@ function renderInbox(element, DomElement) {
     newTaskButton.classList.add('create-task')
     newTaskButton.textContent = '+ Add new task'
 
+    //render all tasks
     let i = 0
     element.item.forEach(e => {
 
@@ -274,7 +291,7 @@ function renderInbox(element, DomElement) {
 
         task.innerHTML = `
         <div class="task-left">
-            <input type="checkbox" name="status" id="status" value='true'>
+            <input type="checkbox" name="status" id="status" value='true' data-checkbox='${i}'>
             <div class="priority" style="background-color: ${element.item[i].priority}";></div>
             <div class="task-name">${element.item[i].name}</div>
         </div>
@@ -346,27 +363,12 @@ function renderInbox(element, DomElement) {
         console.log(element.item)
 
         renderInbox(element)
-        selectCheckmarks()
+        allCheckboxes = document.querySelectorAll('#status')
         hideTaskForm()
         storeProjects()
         storeInbox()
 
-
-        function selectCheckmarks() {
-            const checkbox = document.querySelectorAll('#status')
-            console.log(checkbox)
-        
-            checkbox.forEach(element => {
-                element.addEventListener('change', storeTaskStatus)
-            });
-        
-            function storeTaskStatus(e) {
-                console.log(e)
-                
-                storeProjects()
-            }
-        }
     }
-
+    allCheckboxes = document.querySelectorAll('#status')
 }
 
