@@ -13,9 +13,10 @@ class Project {
         localStorage.removeItem(`project ${index}`)
     }
 
-
 } class ToDoList {
+
     constructor(name, index, status, date, priority) {
+
         this.name = name
         this.status = status
         this.date = date
@@ -46,14 +47,7 @@ class Project {
         console.log(dateObj)
         return formatDate
     }
-    checkTask() {
-        const checkbox = document.querySelector(`[data-checkbox="${this.index}"]`)
-        console.log(checkbox)
-        checkbox.addEventListener('change', (e) => {
-            this.status = e.target.checked
-        })
 
-    }
 
 }
 
@@ -68,15 +62,9 @@ let projectCount = 1
 function storeInbox() {
     let elementJson = JSON.stringify(inbox)
     localStorage.setItem(`project ${inbox.index}`, elementJson)
-    
+
 }
-function getInboxData(){
-    if (JSON.parse(localStorage.getItem(`project undefined`)) != null) {
-        console.log('getting json inbox data')
-        let storageObjects = JSON.parse(localStorage.getItem(`project undefined`)) 
-        inbox = new Project(storageObjects.name, storageObjects.item, storageObjects.index)
-    }
-}
+
 function storeProjects() {
     projectsArr.forEach(element => {
         let elementJson = JSON.stringify(element)
@@ -92,6 +80,7 @@ function insertAfter(newNode, existingNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
 
+//create missing projects from local storage
 function createMissingProjects() {
     for (let i = 0; i < 1000; i++) {
 
@@ -111,8 +100,17 @@ function createMissingProjects() {
             projectCount = 1 + storageObjects.index
 
         }
-       
 
+
+    }
+}
+function getInboxData() {
+    if (JSON.parse(localStorage.getItem(`project undefined`)) != null) {
+
+        let storageObjects = JSON.parse(localStorage.getItem(`project undefined`))
+        inbox = new Project(storageObjects.name,
+            storageObjects.item,
+            storageObjects.index)
     }
 }
 
@@ -304,6 +302,23 @@ function renderInbox(element, DomElement) {
         `
         taskContainer.appendChild(task)
 
+        if (element.item[i].status == true) {
+            task.innerHTML = `
+            <div class="task-left">
+            <input type="checkbox" name="status" id="status" value='true' data-checkbox='${i}' checked>
+            <div class="priority" style="background-color: ${element.item[i].priority}";></div>
+            <div class="task-name">${element.item[i].name}</div>
+        </div>
+
+        <div class="task-right">
+            <div class="date-text">${element.item[i].formatedDay}</div>
+            <button class="edit-task"><img src="./img/edit.png" alt="edit" width="20px"></button>
+            <button class="delete-task"><img src="./img/delete.png" alt="delete" width="20px"></button>
+        </div>
+            `
+        }
+        console.log(element.item[i].status)
+
         i++
     });
     taskContainer.appendChild(newTaskButton)
@@ -369,6 +384,17 @@ function renderInbox(element, DomElement) {
         storeInbox()
 
     }
+
     allCheckboxes = document.querySelectorAll('#status')
+    allCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            console.log(e.target.checked)
+            let checkboxNum = e.target.dataset.checkbox
+            console.log(parseInt(e.target.dataset.checkbox))
+            element.item[checkboxNum].status = e.target.checked
+            storeProjects()
+            storeInbox()
+        })
+    });
 }
 
