@@ -50,12 +50,17 @@ class Project {
 
 }
 
-
+const inbox = new Project('Inbox', [], undefined)
 const projectsArr = []
 const addProject = document.querySelector('.add-project')
 
 
 let projectCount = 0
+
+function storeInbox() {
+    let elementJson = JSON.stringify(inbox)
+    localStorage.setItem(`project ${inbox.index}`, elementJson)
+}
 
 function storeProjects() {
     projectsArr.forEach(element => {
@@ -101,6 +106,7 @@ createMissingProjects()
 
 
 let menuButtons = document.querySelectorAll('.menu-button')
+let projects = document.querySelectorAll('.new-project')
 //create new projects module
 const createNewProjectsModule = (function () {
 
@@ -108,7 +114,7 @@ const createNewProjectsModule = (function () {
     const addProjectButton = document.querySelector('.new-project-buttons-add-project')
     const addProjectCancel = document.querySelector('.new-project-buttons-cancel')
     const projectName = document.getElementById('project-name')
-    let projects = document.querySelectorAll('.new-project')
+    projects = document.querySelectorAll('.new-project')
     let projectsDeleteButton = document.querySelectorAll('.new-project-delete')
 
 
@@ -182,43 +188,56 @@ const todayElement = document.querySelector('.today')
 const weekElement = document.querySelector('.week')
 const completedElement = document.querySelector('.completed')
 
-const inbox = new Project('Inbox', [], undefined)
+
 
 
 //screen render stuff
 const content = document.querySelector('.content')
 
-renderInbox(inbox)
+renderInbox(inbox, inboxElement)
 function renderContent(e) {
+    menuButtons.forEach(element => {
+        element.classList.remove('selected')
+    });
 
     if (this.classList.contains('inbox')) {
 
         if (!this.classList.contains('selected')) {
-            renderInbox(inbox)
-            inboxElement.classList.add('selected')
+            renderInbox(inbox, this)
+            this.classList.add('selected')
         }
 
     }
     if (this.classList.contains('today')) {
         console.log('today')
+        this.classList.add('selected')
 
     }
     if (this.classList.contains('week')) {
         console.log('week')
+        this.classList.add('selected')
     }
     if (this.classList.contains('completed')) {
         console.log('completed')
+        this.classList.add('selected')
     }
 
     //for project render
     if (this.dataset.index != undefined) {
-        console.log(parseInt(this.dataset.index))
-        //render project func goes here
+        if (!this.classList.contains('selected')) {
+            let projectDom = parseInt(this.dataset.index)
+            console.log(projectDom)
+            //render project func goes here
+            renderInbox(projectsArr[projectDom], this)
+            this.classList.add('selected')
+        }
+
     }
 
 }
 
-function renderInbox(element) {
+function renderInbox(element, DomElement) {
+
     const taskContainer = document.querySelector('.task-conteiner')
     taskContainer.innerHTML = `
     <div class="form-conteiner">
@@ -255,7 +274,7 @@ function renderInbox(element) {
 
         task.innerHTML = `
         <div class="task-left">
-            <input type="checkbox" name="status" id="status">
+            <input type="checkbox" name="status" id="status" value='true'>
             <div class="priority" style="background-color: ${element.item[i].priority}";></div>
             <div class="task-name">${element.item[i].name}</div>
         </div>
@@ -327,8 +346,27 @@ function renderInbox(element) {
         console.log(element.item)
 
         renderInbox(element)
+        selectCheckmarks()
         hideTaskForm()
+        storeProjects()
+        storeInbox()
 
+
+        function selectCheckmarks() {
+            const checkbox = document.querySelectorAll('#status')
+            console.log(checkbox)
+        
+            checkbox.forEach(element => {
+                element.addEventListener('change', storeTaskStatus)
+            });
+        
+            function storeTaskStatus(e) {
+                console.log(e)
+                
+                storeProjects()
+            }
+        }
     }
 
 }
+
