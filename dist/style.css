@@ -379,3 +379,7 @@ input[type="checkbox"]:checked::before {
 .create-new-task-form input[type='submit'] {
     width: 120px;
 }
+
+.task-right img{
+    cursor: pointer;
+}

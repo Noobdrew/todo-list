@@ -23,6 +23,7 @@ class Project {
         this.priority = priority
         this.index = index
         this.formatedDay = this.formatDate()
+        this.HTMLdate = this.HTMLdate()
     } formatDate() {
 
         const dateObj = this.date
@@ -47,7 +48,29 @@ class Project {
         console.log(dateObj)
         return formatDate
     }
+    HTMLdate() {
+        const dateObj = this.date
+        const dateDay = dateObj.getDate()
+        const dateMonth = dateObj.getMonth() + 1
+        const fullYear = dateObj.getFullYear()
+        const formatYear = String(fullYear).substring(2, 4)
 
+        if (dateObj == 'Invalid Date') {
+            return '--/--/--'
+        }
+        const formatedDay = dateDay.toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        })
+        const formatedMonth = dateMonth.toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        })
+
+        const formatDate = (`${fullYear}-${formatedMonth}-${formatedDay}`)
+        console.log(dateObj)
+        return formatDate
+    }
 
 }
 
@@ -56,6 +79,8 @@ const projectsArr = []
 
 const addProject = document.querySelector('.add-project')
 let allCheckboxes = document.querySelectorAll('#status')
+let taskEdit = document.querySelectorAll('.etit-task')
+let taskDelete = document.querySelectorAll('.delete-task')
 
 let projectCount = 1
 
@@ -296,8 +321,8 @@ function renderInbox(element, DomElement) {
 
         <div class="task-right">
             <div class="date-text">${element.item[i].formatedDay}</div>
-            <button class="edit-task"><img src="./img/edit.png" alt="edit" width="20px"></button>
-            <button class="delete-task"><img src="./img/delete.png" alt="delete" width="20px"></button>
+            <img src="./img/edit.png" alt="edit" width="20px" class="edit-task" data-edit='${i}'>
+            <img src="./img/delete.png" alt="delete" width="20px" class="delete-task" data-delete='${i}'>
         </div>
         `
         taskContainer.appendChild(task)
@@ -312,8 +337,8 @@ function renderInbox(element, DomElement) {
 
         <div class="task-right">
             <div class="date-text">${element.item[i].formatedDay}</div>
-            <button class="edit-task"><img src="./img/edit.png" alt="edit" width="20px"></button>
-            <button class="delete-task"><img src="./img/delete.png" alt="delete" width="20px"></button>
+            <img src="./img/edit.png" alt="edit" width="20px" class="edit-task" data-edit='${i}'>
+            <img src="./img/delete.png" alt="delete" width="20px" class="delete-task" data-delete='${i}'>
         </div>
             `
         }
@@ -336,28 +361,38 @@ function renderInbox(element, DomElement) {
     const taskPriority = document.querySelector('#task-priority')
 
     //show task form
+
+
     addNewTaskButton.addEventListener('click', showTaskForm)
     function showTaskForm() {
-
+        addTask.value = 'Add task'
         newTaskForm.style.visibility = 'visible'
         taskName.value = ''
         taskDate.value = ''
         taskPriority.value = 'High'
     }
 
+
     //hide task form
+
     taskCancel.addEventListener('click', hideTaskForm)
     function hideTaskForm() {
         newTaskForm.style.visibility = 'hidden'
 
     }
 
+
+
     // class ToDoList {
     //     constructor(name, index, status, date, priority)
 
     addTask.addEventListener('click', createNewTask)
-    function createNewTask(e) {
+     function createNewTask(e) {
         e.preventDefault()
+        
+        if(addTask.value=='Edit task'){
+            return 
+        }
 
         let taskCount = element.item.length
 
@@ -384,17 +419,46 @@ function renderInbox(element, DomElement) {
         storeInbox()
 
     }
+//------------------------- create new task ------------------------
+
+
+    taskDelete = document.querySelectorAll('.delete-task')
 
     allCheckboxes = document.querySelectorAll('#status')
     allCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
             console.log(e.target.checked)
-            let checkboxNum = e.target.dataset.checkbox
-            console.log(parseInt(e.target.dataset.checkbox))
+            let checkboxNum = parseInt(e.target.dataset.checkbox)
+            console.log(checkboxNum)
             element.item[checkboxNum].status = e.target.checked
             storeProjects()
             storeInbox()
         })
-    });
+    })
+
+    taskEdit = document.querySelectorAll('.edit-task')
+    taskEdit.forEach(edit => {
+        edit.addEventListener('click', (e) => {
+            console.log(e.target)
+            let editNum = parseInt(e.target.dataset.edit)
+            console.log(editNum)
+
+            newTaskForm.style.visibility = 'visible'
+            taskName.value = element.item[editNum].name
+            taskDate.value = element.item[editNum].HTMLdate
+            taskPriority.value = element.item[editNum].priority
+            addTask.value = 'Edit task'
+            addTask.addEventListener('click', () => {
+                element.item[editNum].name = taskName.value
+                element.item[editNum].date = taskDate.value
+                element.item[editNum].priority = taskPriority.value
+                renderInbox(element) 
+                storeProjects()
+                storeInbox()
+            })
+            
+        })
+    })
+  
 }
 
