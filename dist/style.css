@@ -109,7 +109,7 @@ overflow: auto;
 
 .sidebar-grid {
     display: grid;
-    grid-template-rows: 25px 25px 25px 25px;
+    grid-template-rows: 25px ;
     gap: 5px;
     justify-items: start;
     align-items: center;

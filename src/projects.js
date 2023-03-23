@@ -222,12 +222,6 @@ const createNewProjectsModule = (function () {
 })()
 
 const inboxElement = document.querySelector('.inbox')
-const todayElement = document.querySelector('.today')
-const weekElement = document.querySelector('.week')
-const completedElement = document.querySelector('.completed')
-
-
-
 
 //screen render stuff
 const content = document.querySelector('.content')
@@ -246,19 +240,7 @@ function renderContent(e) {
         }
 
     }
-    if (this.classList.contains('today')) {
-        console.log('today')
-        this.classList.add('selected')
 
-    }
-    if (this.classList.contains('week')) {
-        console.log('week')
-        this.classList.add('selected')
-    }
-    if (this.classList.contains('completed')) {
-        console.log('completed')
-        this.classList.add('selected')
-    }
 
     //for project render
     if (this.dataset.index != undefined) {
@@ -467,4 +449,3 @@ function renderInbox(element, DomElement) {
         })
     })
 }
-
