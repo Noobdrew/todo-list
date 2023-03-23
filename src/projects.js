@@ -381,21 +381,16 @@ function renderInbox(element, DomElement) {
 
     }
 
-
-
-    // class ToDoList {
-    //     constructor(name, index, status, date, priority)
-
+    //------------------------create new task-------------------------//
     addTask.addEventListener('click', createNewTask)
-     function createNewTask(e) {
+    function createNewTask(e) {
         e.preventDefault()
-        
-        if(addTask.value=='Edit task'){
-            return 
+
+        if (addTask.value == 'Edit task') {
+            return
         }
 
         let taskCount = element.item.length
-
 
         console.log(taskDate.value)
 
@@ -419,11 +414,9 @@ function renderInbox(element, DomElement) {
         storeInbox()
 
     }
-//------------------------- create new task ------------------------
+    //------------------------- create new task ------------------------//
 
-
-    taskDelete = document.querySelectorAll('.delete-task')
-
+    //mark task as complete 
     allCheckboxes = document.querySelectorAll('#status')
     allCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
@@ -436,6 +429,7 @@ function renderInbox(element, DomElement) {
         })
     })
 
+    //edit task
     taskEdit = document.querySelectorAll('.edit-task')
     taskEdit.forEach(edit => {
         edit.addEventListener('click', (e) => {
@@ -452,13 +446,25 @@ function renderInbox(element, DomElement) {
                 element.item[editNum].name = taskName.value
                 element.item[editNum].date = taskDate.value
                 element.item[editNum].priority = taskPriority.value
-                renderInbox(element) 
+                renderInbox(element)
                 storeProjects()
                 storeInbox()
             })
-            
+
         })
     })
-  
+
+    //delete task
+    taskDelete = document.querySelectorAll('.delete-task')
+    taskDelete.forEach(Tdelete => {
+        Tdelete.addEventListener('click', (e) => {
+            let delNum = parseInt(e.target.dataset.delete)
+            console.log(element.item[delNum])
+            element.item.splice(delNum,1)
+            renderInbox(element)
+            storeProjects()
+            storeInbox()
+        })
+    })
 }
 
