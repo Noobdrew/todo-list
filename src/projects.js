@@ -303,8 +303,8 @@ function renderInbox(element, DomElement) {
 
         <div class="task-right">
             <div class="date-text">${element.item[i].formatedDay}</div>
-            <img src="./img/edit.png" alt="edit" width="20px" class="edit-task" data-edit='${i}'>
-            <img src="./img/delete.png" alt="delete" width="20px" class="delete-task" data-delete='${i}'>
+            <img src="./dist/img/edit.png" alt="edit" width="20px" class="edit-task" data-edit='${i}'>
+            <img src="./dist/img/delete.png" alt="delete" width="20px" class="delete-task" data-delete='${i}'>
         </div>
         `
         taskContainer.appendChild(task)
@@ -319,8 +319,8 @@ function renderInbox(element, DomElement) {
 
         <div class="task-right">
             <div class="date-text">${element.item[i].formatedDay}</div>
-            <img src="./img/edit.png" alt="edit" width="20px" class="edit-task" data-edit='${i}'>
-            <img src="./img/delete.png" alt="delete" width="20px" class="delete-task" data-delete='${i}'>
+            <img src="./dist/img/edit.png" alt="edit" width="20px" class="edit-task" data-edit='${i}'>
+            <img src="./dist/img/delete.png" alt="delete" width="20px" class="delete-task" data-delete='${i}'>
         </div>
             `
         }
