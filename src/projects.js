@@ -426,7 +426,25 @@ function renderInbox(element, DomElement) {
             addTask.value = 'Edit task'
             addTask.addEventListener('click', () => {
                 element.item[editNum].name = taskName.value
-                element.item[editNum].date = taskDate.value
+
+                let day = parseInt((taskDate.value).substring(8, 10))
+                let month = parseInt((taskDate.value).substring(5, 7))
+                let year = parseInt((taskDate.value).substring(0, 4))
+
+                const formatedDay = day.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                const formatedMonth = month.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+               console.log( `${formatedDay}/${formatedMonth}/${String(year).substring(2, 4)}`)
+        
+                const jsDate = new Date(`${year}-${month}-${day}`)
+                element.item[editNum].date = jsDate
+                element.item[editNum].formatedDay = `${formatedDay}/${formatedMonth}/${String(year).substring(2, 4)}`
+
                 element.item[editNum].priority = taskPriority.value
                 renderInbox(element)
                 storeProjects()
